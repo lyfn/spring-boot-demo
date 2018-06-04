@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <logger name="org.springframework.web" level="DEBUG"/>
+
+    <!--%d{HH:mm:ss.SSS}——日志输出时间-->
+    <!--%thread——输出日志的进程名字，这在Web应用以及异步任务处理中很有用-->
+    <!--%-5level——日志级别，并且使用5个字符靠左对齐-->
+    <!--%logger{36}——日志输出者的名字-->
+    <!--%msg——日志消息-->
+    <!--%n——平台的换行符-->
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>.%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n</Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+
+    <!--其中重要的是rollingPolicy的定义，
+    上例中rest-demo.%d{yyyy-MM-dd}.log定义了日志的切分方式——把每一天的日志归档到一个文件中，
+    30表示只保留最近30天的日志，以防止日志填满整个磁盘空间。
+    同理，可以使用%d{yyyy-MM-dd_HH-mm}来定义精确到分的日志切分方式。-->
+    <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>/data/log/app.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <FileNamePattern>rest-demo.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="Sentry" class="net.kencochrane.raven.logback.SentryAppender">
+        <dsn>https://publicKey:secretKey@host:port/1?options</dsn>
+        <tags>tag1:value1,tag2:value2</tags>
+        <!-- Optional, allows to select the ravenFactory -->
+        <!--<ravenFactory>net.kencochrane.raven.DefaultRavenFactory</ravenFactory>-->
+    </appender>
+    <root level="warn">
+        <appender-ref ref="Sentry"/>
+    </root>
+
+</configuration>
+
