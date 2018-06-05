@@ -1,5 +1,6 @@
 package com.springboot.dome.springbootdeme.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.springboot.dome.springbootdeme.entity.Student;
 import com.springboot.dome.springbootdeme.mapper.StudentMapper;
 import com.springboot.dome.springbootdeme.service.StudentService;
@@ -38,6 +39,7 @@ public class StudentController {
 
     @RequestMapping("/likeName")
     public List<Student> likeName(@RequestParam String name){
+        PageHelper.startPage(2,2);
         return studentMapper.likeName(name);
     }
 
