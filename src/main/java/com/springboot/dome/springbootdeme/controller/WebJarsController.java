@@ -31,7 +31,7 @@ public class WebJarsController {
             String mvcPrefix = "/webjarslocator/" + webjar + "/";
             String mvcPath = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
             String fullPath = assetLocator.getFullPath(webjar, mvcPath.substring(mvcPrefix.length()));
-            return new ResponseEntity<>(new ClassPathResource(fullPath), HttpStatus.OK);
+            return new ResponseEntity<>((Object) new ClassPathResource(fullPath), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

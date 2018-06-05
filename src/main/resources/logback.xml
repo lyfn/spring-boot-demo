@@ -2,6 +2,7 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <logger name="org.springframework.web" level="DEBUG"/>
+    <logger name="org.springframework.boot" level="DEBUG"/>
 
     <!--%d{HH:mm:ss.SSS}——日志输出时间-->
     <!--%thread——输出日志的进程名字，这在Web应用以及异步任务处理中很有用-->
