@@ -1,6 +1,8 @@
 package com.springboot.dome.springbootdeme.controller;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +18,7 @@ import java.util.Map;
  */
 
 @Controller
-public class PageController {
+public class PageController implements EnvironmentAware{
 
     // 从 application.properties 中读取配置，如取不到默认值为Hello Shanhy
     @Value("${application.hello}")
@@ -70,4 +72,9 @@ public class PageController {
         return "page/page1";
     }
 
+    @Override
+    public void setEnvironment(Environment environment) {
+        String s = environment.getProperty("JAVA_HOME");
+        System.out.println(s);
+    }
 }

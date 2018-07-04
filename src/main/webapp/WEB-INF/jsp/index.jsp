@@ -13,7 +13,9 @@ Message: ${message}
 
 <img alt="读取默认配置中的图片" src="${pageContext.request.contextPath }/a.jpg">
 <br/>
-<img alt="读取自定义配置myres中的图片" src="${pageContext.request.contextPath }/myres/qq/bb.jpg">
+<img alt="读取自定义配置myres中的图片" src="${pageContext.request.contextPath }/myres/mm/bb.jpg">
+<br/>
+<img alt="读取自定义配置myres中的图片" src="${pageContext.request.contextPath }/myres/bit.jpg">
 
 
 </body>
